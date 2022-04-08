@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+	<meta charset="utf-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+		name="viewport" />
+	<title>蕴书楼-Statistic</title>
+</head>
+
+<body style="margin: 0 auto;text-align: center;">
+	<h1>蕴书楼资源统计（非实时）</h1>
+    <div id="container" style=" width: auto;height: 300px;margin: 0 auto;text-align: center;"></div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script type="text/javascript">
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        app.title = '资源数量统计';
+        var namedate = ['索引 A', '索引 B', '索引 C', '索引 D', '索引 E'];
+        var numdate = [23, 1, 3, 0, 0];
+        var colorlist = [];
+        numdate.forEach(element => {
+            if (element < 10) {
+                colorlist.push(["#fc7095", "#fa8466"])
+            } else if (element >= 10 && element < 30) {
+                colorlist.push(["#386ffd", "#74b3ff"])
+            } else {
+                colorlist.push(["#1aa8ce", "#49d3c6"])
+            }
+        });
+        option = {
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: namedate,
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "#4dd1c4",
+                            width: 1
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#999'
+                        }
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} 本',
+                        show: true,
+                        textStyle: {
+                            color: '#999'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "#4dd1c4",
+                            width: 1
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            type: 'dashed',
+                            color: '#ddd'
+                        }
+                    }
+
+                }
+            ],
+            series: [
+                {
+                    name: '资源数量',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: numdate,
+                    itemStyle: {
+                        normal: {
+                            // color: new echarts.graphic.LinearGradient(
+                            //     0, 0, 0, 1,
+                            //     [
+                            //         {offset: 1, color: 'red'},
+                            //         {offset: 0, color: 'orange'}
+                            //     ]
+                            // )
+                            color: function (params) {
+                                // var colorList = colorlist;
+                                // return colorList[params.dataIndex];
+                                var colorList = colorlist
+
+                                var index = params.dataIndex;
+                                // if(params.dataIndex >= colorList.length){
+                                //         index=params.dataIndex-colorList.length;
+                                // }
+                                return new echarts.graphic.LinearGradient(0, 0, 0, 1,
+                                    [
+                                        { offset: 1, color: colorList[index][0] },
+                                        { offset: 0, color: colorList[index][1] }
+                                    ]);
+
+
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+        ;
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta charset="utf-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+			name="viewport" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="index.css" />
+	</head>
+	<body>
+		<div class="component">
+			<ul class="align">
+				<li>
+					<figure class='book'>
+
+						<!-- Front -->
+
+						<ul class='hardcover_front'>
+							<li>
+								<div class="coverDesign blue">
+									<h1>蕴书楼</h1>
+									<p>书蕴</p>
+								</div>
+							</li>
+							<li></li>
+						</ul>
+
+						<!-- Pages -->
+
+						<ul class='page'>
+							<li></li>
+							<li>
+								<a class="btn" href="list.html">目录</a>
+							</li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</ul>
+
+						<!-- Back -->
+
+						<ul class='hardcover_back'>
+							<li></li>
+							<li></li>
+						</ul>
+						<ul class='book_spine'>
+							<li></li>
+							<li></li>
+						</ul>
+						<figcaption>
+							<h1>蕴书楼</h1>
+							<span>yunshulou.github.io</span>
+							<p id="hitokoto">一言...</p>
+							<p id="hitokoto_from_who">作者...</p>
+						</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<hr style="margin-top: 200px;" />
+		<div class="foot">
+			2020 © 蕴书楼 - 四海网络资源收集计划
+			 - <a href="about.html">关于</a>
+			 - <a href="statistic.html">统计</a>
+		</div>
+		<!-- 一言接口 -->
+		<script>
+			fetch('https://v1.hitokoto.cn?c=i')
+				.then(response => response.json())
+				.then(data => {
+					const hitokoto = document.getElementById('hitokoto')
+					hitokoto.innerText = data.hitokoto
+					const hitokoto_from_who = document.getElementById("hitokoto_from_who")
+					hitokoto_from_who.innerText = "——"+data.from_who+"《"+data.from+"》"
+				})
+				.catch(console.error)
+		</script>
+	</body>
+</html>
